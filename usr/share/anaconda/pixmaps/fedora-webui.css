@@ -1,0 +1,54 @@
+/* Fedora brand colors used in Anaconda WebUI
+ * https://docs.fedoraproject.org/en-US/project/brand/#_colors */
+
+.anaconda {
+    --brand-default-light: #51a2da; /* New Fedora Blue */
+    --brand-default: #3c6eb4; /* Fedora Blue */
+    --brand-default-dark: #294172; /* Fedora Dark Blue */
+}
+
+/* Installer header logo — served by cockpit-ws via a symlink to
+ * /usr/share/anaconda/pixmaps/webui-header-logo.png.
+ * Remixes: override the symlink target to use a different logo. */
+.anaconda .logo {
+    background-image: url("webui-header-logo.png");
+    /* Fedora doesn't ship the on-dark version of the SVG, but we can fake it */
+    filter: invert(1) grayscale(1) brightness(2.5);
+    mix-blend-mode: screen;
+}
+
+/* Header bar background — Fedora blue gradient */
+#anaconda-header-bar {
+    background: radial-gradient(circle at 2.5rem, var(--brand-default-light) 32px, var(--brand-default) 100%);
+}
+
+/* Header title text — white on blue background */
+#anaconda-header-title {
+    --pf-v6-c-content--Color: white;
+}
+
+/* Kebab menu icon — inherit header text color */
+#toggle-kebab path {
+    fill: white;
+}
+
+#toggle-kebab:hover path {
+    fill: color-mix(in lch, white 75%, transparent);
+}
+
+/* Map brand colors to PatternFly tokens */
+
+:not(.pf-v6-theme-dark) .anaconda {
+    --pf-t--global--color--brand--default: var(--brand-default);
+    --pf-t--global--color--brand--hover: var(--brand-default-dark);
+}
+
+:not(.pf-v6-theme-dark) .pf-v6-c-wizard__nav-link.pf-m-current::before {
+    /* Use the lighter brand color for the current wizard step indicator */
+    --pf-v6-c-wizard__nav-link--m-current--before--BackgroundColor: var(--brand-default-light);
+}
+
+.pf-v6-theme-dark .anaconda {
+    --pf-t--global--color--brand--default: var(--brand-default-light);
+    --pf-t--global--color--brand--hover: var(--brand-default);
+}
